@@ -1,0 +1,16 @@
+# personal data and run output
+results/
+plateau_gui.ini
+input.txt
+best_*.txt
+log_*.txt
+*.log
+window_line*.txt
+
+# archives and backups
+_archive*/
+backup_*/
+
+# build outputs (the release exes are attached to GitHub releases instead)
+*.o
+*.exe

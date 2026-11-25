@@ -1,0 +1,92 @@
+// Plateau GUI resources. Build: windres plateau_gui.rc -O coff -o plateau_gui_res.o
+#include <windows.h>
+#include "gui_res.h"
+
+IDI_APP ICON "plateau.ico"
+1 24 "plateau_gui.manifest"
+
+IDD_SETTINGS DIALOGEX 0, 0, 566, 328
+STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU | DS_SHELLFONT
+CAPTION "Plateau settings"
+FONT 9, "Segoe UI"
+BEGIN
+    GROUPBOX        "Minimise first", -1, 7, 6, 276, 40
+    AUTORADIOBUTTON "Moves (then pushes)", IDC_GOAL_MOVES, 16, 18, 120, 10, WS_GROUP | WS_TABSTOP
+    AUTORADIOBUTTON "Pushes (then moves)", IDC_GOAL_PUSHES, 16, 30, 120, 10
+    LTEXT           "Run time per level (minutes):", -1, 7, 56, 130, 10
+    EDITTEXT        IDC_MINUTES, 150, 54, 50, 12, ES_NUMBER | WS_TABSTOP
+    LTEXT           "Threads (cores to use):", -1, 7, 74, 130, 10
+    EDITTEXT        IDC_THREADS, 150, 72, 50, 12, ES_NUMBER | WS_TABSTOP
+    LTEXT           "", IDC_THREADS_NOTE, 206, 74, 77, 10
+    LTEXT           "Slack (blank = default, 10 moves / 4 pushes):", -1, 7, 92, 140, 10
+    EDITTEXT        IDC_SLACK, 150, 90, 50, 12, ES_NUMBER | WS_TABSTOP
+    LTEXT           "Random seed (blank = default, 1):", -1, 7, 110, 140, 10
+    EDITTEXT        IDC_SEED, 150, 108, 50, 12, ES_NUMBER | WS_TABSTOP
+    LTEXT           "Extra options (advanced, for example XO=0 PFSEED=1):", -1, 7, 128, 276, 10
+    EDITTEXT        IDC_EXTRA, 7, 140, 276, 12, ES_AUTOHSCROLL | WS_TABSTOP
+    AUTOCHECKBOX    "Run at below-normal priority (other programs get the CPU first)", IDC_LOWPRI, 7, 160, 276, 10, WS_TABSTOP
+    AUTOCHECKBOX    "Tick new lines found by runs, so the next run starts from them too (ping-pong)", IDC_FEED, 7, 174, 276, 10, WS_TABSTOP
+    LTEXT           "Command:", -1, 7, 190, 40, 10
+    EDITTEXT        IDC_PREVIEW, 7, 201, 276, 26, ES_MULTILINE | ES_READONLY | NOT WS_TABSTOP
+    GROUPBOX        "Window line (how many pushes each step re-plans)", -1, 292, 6, 267, 296
+    AUTORADIOBUTTON "Range", IDC_WM_RANGE, 300, 18, 44, 10, WS_GROUP | WS_TABSTOP
+    AUTORADIOBUTTON "S-Curve", IDC_WM_SCURVE, 346, 18, 76, 10
+    AUTORADIOBUTTON "Curve", IDC_WM_CURVE, 424, 18, 40, 10
+    AUTORADIOBUTTON "Equal (default)", IDC_WM_EQUAL, 468, 18, 70, 10
+    LTEXT           "Bottom:", -1, 300, 34, 30, 10
+    EDITTEXT        IDC_WLO, 330, 32, 32, 12, ES_NUMBER | WS_TABSTOP
+    LTEXT           "Top:", -1, 370, 34, 20, 10
+    EDITTEXT        IDC_WHI, 392, 32, 32, 12, ES_NUMBER | WS_TABSTOP
+    LTEXT           "pushes (Range, S-Curve)", -1, 430, 34, 120, 10
+    LTEXT           "Centre:", -1, 300, 50, 30, 10
+    EDITTEXT        IDC_WCENTER, 330, 48, 32, 12, ES_NUMBER | WS_TABSTOP
+    LTEXT           "Width:", -1, 370, 50, 22, 10
+    EDITTEXT        IDC_WSIGMA, 392, 48, 32, 12, ES_NUMBER | WS_TABSTOP
+    LTEXT           "pushes (Curve)", -1, 430, 50, 120, 10
+    LTEXT           "Midpoint:", -1, 300, 66, 32, 10
+    EDITTEXT        IDC_LOGS0, 334, 64, 36, 12, ES_NUMBER | WS_TABSTOP
+    LTEXT           "Width:", -1, 376, 66, 22, 10
+    EDITTEXT        IDC_LOGW, 398, 64, 32, 12, ES_NUMBER | WS_TABSTOP
+    LTEXT           "steps without improvement (S-Curve)", -1, 436, 66, 120, 10
+    AUTOCHECKBOX    "Adaptive", IDC_WADAPT, 300, 82, 46, 10, WS_TABSTOP
+    AUTOCHECKBOX    "Inverse (experimental)", IDC_WINV, 456, 82, 96, 10, WS_TABSTOP
+    LTEXT           "Re-measure every:", -1, 300, 98, 62, 10
+    EDITTEXT        IDC_WRECAL, 362, 96, 28, 12, ES_NUMBER | WS_TABSTOP
+    LTEXT           "s, measure time:", -1, 393, 98, 56, 10
+    EDITTEXT        IDC_WRECALBUD, 449, 96, 22, 12, ES_NUMBER | WS_TABSTOP
+    LTEXT           "s (Curve, Equal)", -1, 474, 98, 70, 10
+    LTEXT           "Adapt speed:", -1, 300, 114, 46, 10
+    EDITTEXT        IDC_WRATE, 348, 112, 22, 12, ES_NUMBER | WS_TABSTOP
+    LTEXT           "% (Range, S-Curve)", -1, 373, 114, 70, 10
+    AUTOCHECKBOX    "or after each improvement", IDC_WRECALIMP, 448, 113, 104, 10, WS_TABSTOP
+    LTEXT           "", IDC_WGRAPH, 300, 128, 252, 106, SS_OWNERDRAW
+    LTEXT           "Steps without improvement (preview):", -1, 300, 240, 126, 10
+    CONTROL         "", IDC_WSTUCK, "msctls_trackbar32", TBS_HORZ | TBS_NOTICKS | WS_TABSTOP, 426, 238, 96, 14
+    LTEXT           "0", IDC_WSTUCKV, 524, 240, 30, 10
+    LTEXT           "", IDC_WNOTE, 300, 254, 252, 44
+    PUSHBUTTON      "Defaults", IDC_DEFAULTS, 7, 308, 50, 14
+    DEFPUSHBUTTON   "OK", IDOK, 453, 308, 50, 14
+    PUSHBUTTON      "Cancel", IDCANCEL, 509, 308, 50, 14
+END
+
+IDD_PASTE DIALOGEX 0, 0, 360, 250
+STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | DS_SHELLFONT
+CAPTION "Paste levels or solutions"
+FONT 9, "Segoe UI"
+BEGIN
+    LTEXT           "Paste one or more levels (each with or without solution lines), or only solution lines to add them to the level that is open now.", -1, 7, 6, 346, 18
+    EDITTEXT        IDC_PASTE, 7, 26, 346, 198, ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_WANTRETURN | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON   "OK", IDOK, 247, 230, 50, 14
+    PUSHBUTTON      "Cancel", IDCANCEL, 303, 230, 50, 14
+END
+
+IDD_RENAME DIALOGEX 0, 0, 230, 70
+STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU | DS_SHELLFONT
+CAPTION "Rename level"
+FONT 9, "Segoe UI"
+BEGIN
+    LTEXT           "Name or ID for this level (its results folder uses this name):", -1, 7, 7, 216, 10
+    EDITTEXT        IDC_NAME, 7, 20, 216, 12, ES_AUTOHSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON   "OK", IDOK, 117, 48, 50, 14
+    PUSHBUTTON      "Cancel", IDCANCEL, 173, 48, 50, 14
+END

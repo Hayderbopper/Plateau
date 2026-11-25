@@ -1,0 +1,2 @@
+// Plateau app icon. Build: windres plateau.rc -O coff -o plateau_res.o, then add plateau_res.o to the g++ line.
+1 ICON "plateau.ico"

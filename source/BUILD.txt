@@ -1,0 +1,19 @@
+Build (MSYS2 mingw64 g++; C:\msys64\mingw64\bin must be on PATH, windres fails otherwise). In this folder:
+
+Engine (plateau.exe; copy it as plateau_calibrate.exe for the calibration tool, the file name switches the mode):
+  windres plateau.rc -O coff -o plateau_res.o
+  g++ -O3 -march=x86-64-v2 -fopenmp -static -o plateau.exe plateau.cpp plateau_res.o
+GUI (plateau_gui.exe):
+  windres plateau_gui.rc -O coff -o plateau_gui_res.o
+  g++ -O2 -march=x86-64-v2 -municode -mwindows -static -o plateau_gui.exe plateau_gui.cpp plateau_gui_res.o -lcomctl32 -lcomdlg32 -lshell32 -lgdi32 -luser32
+Release builds use -march=x86-64-v2 (any 64-bit CPU from about 2009 on). Their output is identical to -march=native (checked with a deterministic-clock build); -march=native only tunes for the build PC.
+
+Files
+  plateau.cpp     level loading, replay/render, elite pool and output, options, main
+  fastwalk.inc    the plateau walk (steps, window shapes, crossover and replan slots, metric switching)
+  hookball.inc    hook and ball, the step search
+  replan.inc      exact re-planning of 1-3 boxes' whole histories
+  crossover.inc   crossover of many lines through shared positions
+  calib.inc       window-line measuring (calibration, adaptive Curve / Equal)
+  plateau_gui.cpp, plateau_gui.rc, gui_res.h, plateau_gui.manifest   the GUI (it only runs plateau.exe)
+  plateau.rc, plateau.ico   icon resource
