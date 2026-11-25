@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/banner_dark.png">
+    <img src="assets/banner_light.png" alt="Plateau: Sokoban solution optimizer" width="640">
+  </picture>
+</p>
+
 # Plateau: a Sokoban solution optimizer
 
 Give Plateau a Sokoban level and one or more solutions. It searches for shorter solutions, either **fewest moves** (then pushes) or **fewest pushes** (then moves). Every new best line and every new moves/pushes trade-off line is checked by exact replay and written to a file.
